@@ -1,3 +1,5 @@
+import datetime
+
 from apscheduler.schedulers.blocking import BlockingScheduler
 
 import sendgrid_helper
@@ -11,6 +13,10 @@ schedule = BlockingScheduler()
 def access_stack_overflow_page():
     stack_overflow_page.login()
 
+@schedule.scheduled_job('interval', minutes=5)
+def heartbeat():
+    print(datetime.datetime.now())
+    print("Heartbeating")
 
 @schedule.scheduled_job('interval', hours=3)
 def access_stack_overflow_api():
