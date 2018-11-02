@@ -34,6 +34,8 @@ def email_heartbeat():
     sendgrid_helper.send_mail("All good", "All systems operational")
 
 
+print("Process Started")
+print(datetime.datetime.now())
 sendgrid_helper.send_mail("New Deploy", "All works well")
 
 
