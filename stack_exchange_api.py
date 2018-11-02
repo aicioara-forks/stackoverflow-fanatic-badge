@@ -28,8 +28,6 @@ def get_user_details():
 
     response = requests.get(url)
     json = response.json()
-    pprint(json)
-
     return json
 
 
@@ -46,8 +44,17 @@ def have_logged_in(delta_hours):
     last_access_date = datetime.fromtimestamp(last_access_date_timestamp)
 
     now = datetime.now()
+
     return last_access_date > now - timedelta(hours=delta_hours)
 
 
 if __name__ == "__main__":
-    get_user_details()
+    user_details = get_user_details()
+    pprint(user_details)
+
+    last_access_date_timestamp = user_details['items'][0]['last_access_date']
+    last_access_date = datetime.fromtimestamp(last_access_date_timestamp)
+    now = datetime.now()
+    print("\n\nLast Login happened ago")
+    print(now - last_access_date)
+
