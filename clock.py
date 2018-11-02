@@ -28,4 +28,13 @@ def access_stack_overflow_api():
         sendgrid_helper.send_mail("Login overdue alert!", message)
 
 
+
+@schedule.scheduled_job('interval', days=7)
+def email_heartbeat():
+    sendgrid_helper.send_mail("All good", "All systems operational")
+
+
+sendgrid_helper.send_mail("New Deploy", "All works well")
+
+
 schedule.start()

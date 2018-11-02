@@ -1,4 +1,5 @@
 .idea/
 venv/
 deploy_heroku.sh
+deploy_local.sh
 
