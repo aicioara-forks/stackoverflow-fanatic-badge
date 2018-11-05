@@ -13,10 +13,10 @@ schedule = BlockingScheduler()
 def access_stack_overflow_page():
     stack_overflow_page.login()
 
-@schedule.scheduled_job('interval', minutes=5)
+@schedule.scheduled_job('interval', minutes=30)
 def heartbeat():
-    print(datetime.datetime.now())
-    print("Heartbeating")
+    print("HB {}".format(datetime.datetime.now()))
+
 
 @schedule.scheduled_job('interval', hours=3)
 def access_stack_overflow_api():
@@ -28,15 +28,21 @@ def access_stack_overflow_api():
         sendgrid_helper.send_mail("Login overdue alert!", message)
 
 
-
 @schedule.scheduled_job('interval', days=7)
 def email_heartbeat():
     sendgrid_helper.send_mail("All good", "All systems operational")
 
 
-print("Process Started")
-print(datetime.datetime.now())
-sendgrid_helper.send_mail("New Deploy", "All works well")
-
-
+print("Process Started {}".format(datetime.datetime.now()))
 schedule.start()
+
+print("Testing all systems")
+try:
+    access_stack_overflow_page()
+    heartbeat()
+    access_stack_overflow_api()
+    email_heartbeat()
+except Exception as e:
+    print("Actually got an error, but ignoring...\n", e)
+except:
+    print("Actually got an error. Ignoring...")
