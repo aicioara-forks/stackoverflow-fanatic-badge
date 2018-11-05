@@ -33,9 +33,6 @@ def email_heartbeat():
     sendgrid_helper.send_mail("All good", "All systems operational")
 
 
-print("Process Started {}".format(datetime.datetime.now()))
-schedule.start()
-
 print("Testing all systems")
 try:
     access_stack_overflow_page()
@@ -43,6 +40,12 @@ try:
     access_stack_overflow_api()
     email_heartbeat()
 except Exception as e:
+    sendgrid_helper.send_mail("Got an error when starting", "Please check")
     print("Actually got an error, but ignoring...\n", e)
 except:
     print("Actually got an error. Ignoring...")
+
+
+print("Process Started {}".format(datetime.datetime.now()))
+schedule.start()
+
